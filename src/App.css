@@ -33,3 +33,87 @@
 nav .links a:hover{
   border-bottom: 2px solid #ab7a5f;
 }
+
+/*------------------HEADER----------------------*/
+
+header{
+
+}
+.img-container{
+  position: relative;
+  /* border: solid; */
+  max-width: 558px;
+  min-height: 550px;
+}
+
+.img-container::before{
+  content: "";
+  position: absolute;
+  width: 10%;
+  height: 80%;
+  background: #DECBC0;
+  bottom: 0%;
+  left: 13%;
+  border-radius: 10px;
+ 
+}
+
+
+.header-img1{
+  width: 440px;
+  height: 550px;
+  position:absolute;
+  right: 0;
+}
+.header-img2{
+  width: 250px;
+  height:165.25px ;
+  position:absolute;
+  bottom: 0;
+  left: 0;
+}
+
+header h1{
+  color: #102A42;
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+header p{
+  color: #617d98;
+  font-size: 20px;
+  line-height: 40px;
+}
+
+header button{
+  background-color: #C5A491;
+}
+
+header button:hover{
+  color: gray !important;
+  background-color: #f7cbb1;
+}
+
+/*---------------------CUSTOM---------------------*/
+.custom{
+  background-color: #EADED7;
+}
+
+.custom .card{
+  background-color: #C5A491;
+}
+
+.icon{
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.custom h4{
+  font-size:1.5rem ;
+  font-weight: 700;
+}

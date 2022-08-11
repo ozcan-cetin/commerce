@@ -1,8 +1,14 @@
 import React from 'react'
 
+
 const Main = () => {
   return (
-    <div>Main</div>
+    <div>
+      <div></div>
+      <div>
+        <img src="images/header1.jpeg" alt="" />
+      </div>
+    </div>
   )
 }
 
