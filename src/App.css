@@ -94,10 +94,16 @@ header button:hover{
   background-color: #f7cbb1;
 }
 
+/* before div pembe ekran küçülünce kayıp?
+
 /*---------------------CUSTOM---------------------*/
 .custom{
   background-color: #EADED7;
 }
+
+/* .custom-inner{
+  max-width: 70rem;
+} */
 
 .custom .card{
   background-color: #C5A491;
@@ -116,4 +122,54 @@ header button:hover{
 .custom h4{
   font-size:1.5rem ;
   font-weight: 700;
+}
+
+.custom h3{
+  color: #453227;
+  font-weight: 700;
+  line-height: 2rem;
+  letter-spacing: 1.6px;
+}
+
+.custom h3{
+  color: #453227;
+  font-weight: 700;
+  line-height: 2rem;
+  letter-spacing: 1.6px;
+}
+
+@media (min-width:992px) {
+  .custom-inner{
+      transform: translateY(15%);
+  }
+}
+/* cartlara max width?
+
+/*-----------------------SUBSCRIPTION-------------------------------------------------------*/
+
+.subs-inner h1{
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  color:#102a42;
+}
+.subs-inner button{
+  background-color: #AB7A5F;
+  color: #222;
+  border: 2px solid #222;
+  border-radius: 0 4px 4px 0;
+  padding: 8px 16px;
+  transition: all 0.4s ease-in;
+}
+.subs-inner button:hover{
+  color: #fff;
+}
+.subs-inner input{
+  border: 2px solid #222;
+  border-radius:  4px 0 0 4px ;
+  padding: 8px 16px;
+  border-right: none;
+}
+.subs-inner p{
+  color:#617d98;
 }
