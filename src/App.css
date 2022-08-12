@@ -173,3 +173,13 @@ header button:hover{
 .subs-inner p{
   color:#617d98;
 }
+
+/*-----------------------FOOTER-------------------------------------------------------*/
+footer{
+  background-color: #222;
+  color: #fff;
+}
+
+footer span{
+  color: #AB7A5F;
+}
