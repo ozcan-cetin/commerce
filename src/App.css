@@ -60,7 +60,8 @@ header{
 
 
 .header-img1{
-  width: 440px;
+  width:80%;
+  max-width: 440px;
   height: 550px;
   position:absolute;
   right: 0;
@@ -174,7 +175,16 @@ header button:hover{
   color:#617d98;
 }
 
-/*-----------------------FOOTER-------------------------------------------------------*/
+/*------------------------FOOTER----------------------------------*/
+footer{
+  background-color: #222;
+}
+footer span{
+  color:#AB7A5F;
+}
+
+
+/*---------------------------MAIN-----------------------------------------*/
 .featured{
   background-color: #F1F5F8;
 }
@@ -215,4 +225,94 @@ header button:hover{
 .featured button:hover{
   color: gray !important;
   background-color: #88614c;
+}
+
+/*----------------------------------ABOUT----------------------------*/
+.about-header{
+  background-color:#EADED7!important;
+}
+.about-h1 span:first-child{
+  color:#795744 !important;
+  cursor: pointer;
+  font-weight: 700;
+}
+.about-h1 span:last-child{
+  color:#453227 !important;
+  font-weight: 700;
+}
+.about-img{
+  max-width: 550px;
+  /* height: 500px; */
+}
+.about-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.about-content h1{
+  font-size: 40px;
+  line-height: 40px;
+  color: #102A42;
+  font-weight: 700;
+}
+.about-content p{
+  line-height: 2rem;
+  color: #617D98;
+}
+.about-underline{
+  border-bottom: 3px solid #AB7A5F;
+  width: 6rem;
+}
+
+/*----------------------------------PRODUCTS----------------------------*/
+.products-header{
+  background-color:#EADED7!important;
+}
+.products-h1 span:first-child{
+  color:#795744 !important;
+  cursor: pointer;
+  font-weight: 700;
+}
+.products-h1 span:last-child{
+  color:#453227 !important;
+  font-weight: 700;
+}
+.upper-btnDiv{
+  max-width: 230px;
+}
+
+.single-card-bottom{
+  max-width: 299.34px;
+}
+.single-imgDiv{
+ 
+  height: 175px;
+  position: relative;
+}
+.single-imgDiv img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.single-zoom {
+  position: absolute;
+  left: 0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+.single-zoom button{
+  background-color: #AB7A5F;
+  color: #fff;
+}
+.single-zoom button:hover{
+  background-color: #DAB6A1 !important;
+  color:#72472f !important;
+}
+.single-card span:first-child{
+  color: #102A42;
+}
+.single-card span:last-child{
+  color: #AB7A5F;
 }
