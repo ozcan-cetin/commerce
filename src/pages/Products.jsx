@@ -1,16 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RiOrderPlayFill } from "react-icons/ri";
 import { FaBorderAll } from "react-icons/fa";
 import { ProductContext } from "../context/ProductContext";
 import SingleProduct from "../components/SingleProduct";
+import { TiTick } from "react-icons/ti";
+
 const Products = () => {
   const navigate = useNavigate();
   const { products } = useContext(ProductContext);
+  const [tickColor, setTickColor] = useState(false)
 
   const categories= ["All",...new Set(products.map((item)=>item.category))]
 
   const company= ["All",...new Set(products.map((item)=>item.company))]
+
+  const tempColors=[]
+  // console.log([...new Set(products.map((item)=>item.category))])
+  console.log(products.map((item)=>item.colors.map((color2)=>tempColors.push(color2))))
+  // console.log(products);
+  const colors=[...new Set(tempColors)]
+  // console.log(colors);
+
 
   console.log(products);
   return (
@@ -23,8 +34,9 @@ const Products = () => {
       </div>
       <main className="container row m-auto mt-3 mt-md-5 p-0">
 
-        <div className="search col-2 bg-primary m-0 p-0">
-          <input type="search" placeholder="Search" className="px-1"/>
+        <div className="search col-2 m-0 p-0">
+         <form action="">
+         <input type="search" placeholder="Search" className="px-1"/>
           <ul className="category p-0 m-0">
             <h6>Category</h6>
 {
@@ -46,6 +58,22 @@ const Products = () => {
               })
             }
           </select>
+
+          <h6>Colors</h6>
+          <button className="border-0 bg-transparent">All</button>
+          {
+            colors.map((item)=>{
+              return(
+                <button style={{backgroundColor:item}} className="rounded-circle border-0 mx-1">
+                  <TiTick className={`fs-5 ${tickColor ? "text-white" : "text-red"}`}/>
+                </button>
+              )
+            })
+          }
+
+          <h6>Price</h6>
+          <input type="range" min="$0" max="" />
+         </form>
         </div>
 
         <div className="main-products col-10 m-0">

@@ -316,3 +316,42 @@ footer span{
 .single-card span:last-child{
   color: #AB7A5F;
 }
+
+/*---------------DETAİLS------------*/
+.details-header{
+  background-color:#EADED7!important;
+}
+.details-h1 span:first-child{
+  color:#795744 !important;
+  cursor: pointer;
+  font-weight: 700;
+}
+.details-h1 span:nth-child(2){
+  color:#795744 !important;
+  cursor: pointer;
+  font-weight: 700;
+}
+.details-h1 span:last-child{
+  color:#453227 !important;
+  font-weight: 700;
+}
+
+
+.cartBtn {
+  background-color: #AB7A5F;
+}
+
+.cartBtn:hover{
+  color: gray !important;
+  background-color: #ecb191;
+}
+
+.details-backBtn {
+  background-color: #AB7A5F;
+}
+
+.details-backBtn:hover{
+  color: gray !important;
+  background-color: #ecb191;
+}
+
