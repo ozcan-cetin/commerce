@@ -14,6 +14,11 @@ const Details = () => {
   const [index, setIndex] = useState(0)
   const [tickColor, setTickColor] = useState(0)
   const [amount, setAmount] = useState(1)
+  // const [buyproduct, setBuyproduct] = useState({
+  //   item:
+  //   quantity:amount,
+
+  // })
 
   let singleUrl=`https://course-api.com/react-store-single-product?id=${id}`
 const getProductDetails= async()=>{
@@ -100,12 +105,12 @@ console.log(newImages)
             </div>
            
           </div>
-          <div className='d-flex align-items-center'>
-            <button className='bg-transparent border-0 fs-3' onClick={()=>setAmount(amount === 10 ? amount : amount + 1)}><FaPlusCircle/></button>
+          <div className='details-minusplusDiv d-flex align-items-center'>
+            <button className='border-0 fs-3' onClick={()=>setAmount(amount === 10 ? amount : amount + 1)}><FaPlusCircle/></button>
             <h3 className='m-0'>{amount}</h3>
-            <button className='bg-transparent border-0 fs-3' onClick={()=>setAmount(amount === 1 ? amount : amount - 1)}><FaMinusCircle/></button>
+            <button className='border-0 fs-3' onClick={()=>setAmount(amount === 1 ? amount : amount - 1)}><FaMinusCircle/></button>
           </div>
-          <button onClick={()=>navigate("/cart")} className="cartBtn p-2 border-0 rounded-2 my-1">ADD TO CART</button>
+          <button onClick={()=>navigate("/cart", {state:{quantity:amount, item:detail}})} className="cartBtn p-2 border-0 rounded-2 my-1">ADD TO CART</button>
         </div>
       </div>
     </div>

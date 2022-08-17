@@ -383,3 +383,21 @@ footer span{
   font-size: .5rem;
 }
 
+/*---------------CART------------*/
+
+.cart-img{
+  width: 90px;
+  height: 75px;
+  position: relative;
+  cursor: pointer;
+}
+.cart-img img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart-default-color{
+  color: transparent;
+  font-size: .1rem;
+}
