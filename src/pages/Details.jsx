@@ -11,6 +11,7 @@ const Details = () => {
   const {id} =useParams();
   const [detail,setDetail]=useState([])
   const {loading, setLoading} = useContext(ProductContext)
+  const [index, setIndex] = useState(0)
 
   let singleUrl=`https://course-api.com/react-store-single-product?id=${id}`
 const getProductDetails= async()=>{
@@ -32,9 +33,10 @@ console.log(detail);
 
 const {name, reviews, price, description, stock, company, colors, images} = detail
 
-const {url} = images[0].thumbnails.full
+const newImages = images?.map((item)=>item.thumbnails.large.url)
+console.log(newImages)
 
-// console.log(typeof(images));
+// console.log(images);
   return (
     <div>
       <div className="details-header py-2 ">
@@ -50,14 +52,17 @@ const {url} = images[0].thumbnails.full
         </div>
 
         <div className="details-imgDiv col-md-6">
-          <div>{
-          <img src={url} alt="" />
-            }</div>
-          <div>
-            {/* {images?.map((item)=>{
-              const{}=item;
-              img */}
-            {/* })} */}
+          <div className='details-imgDiv-upper'>
+          <img src={newImages && newImages[index]} alt="" />
+            </div>
+          <div className='d-flex justify-content-between mt-1'>
+           {newImages?.map((item, index)=>{
+            return(
+              <div key={index}  className='card details-imgDiv-bottom' onClick={()=>setIndex(index)}>
+                <img src={item} alt="" />
+              </div>
+            )
+           })}
           </div>
         </div>
 

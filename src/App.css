@@ -355,3 +355,26 @@ footer span{
   background-color: #ecb191;
 }
 
+.details-imgDiv-upper{
+ 
+  height: 500px;
+  position: relative;
+}
+.details-imgDiv-upper img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.details-imgDiv-bottom{
+  width: 90px;
+  height: 75px;
+  position: relative;
+  cursor: pointer;
+}
+.details-imgDiv-bottom img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
