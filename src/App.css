@@ -378,3 +378,8 @@ footer span{
   object-fit: cover;
 }
 
+.default-color{
+  color: transparent;
+  font-size: .5rem;
+}
+

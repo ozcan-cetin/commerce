@@ -12,6 +12,7 @@ const Details = () => {
   const [detail,setDetail]=useState([])
   const {loading, setLoading} = useContext(ProductContext)
   const [index, setIndex] = useState(0)
+  const [tickColor, setTickColor] = useState(0)
 
   let singleUrl=`https://course-api.com/react-store-single-product?id=${id}`
 const getProductDetails= async()=>{
@@ -83,17 +84,20 @@ console.log(newImages)
           <p className='text-capitalize'><span>SKU:</span>{id}</p>
           <p className="text-capitalize"><span>Brand:</span>{company}</p>
           <hr />
-          <div>
+          <div className='d-flex'>
             <span>Colors:</span>
-            {
-              colors?.map((item)=>{
+            <div className='d-flex justify-content-start align-items-center'>
+               {
+              colors?.map((item, tickIndex)=>{
                 return(
-                  <button style={{backgroundColor:item}} className="rounded-circle border-0 mx-1">
-                  <TiTick/>
+                  <button style={{backgroundColor:item}} key={tickIndex} className="rounded-circle border-0 mx-1 " onClick={()=>setTickColor(tickIndex)}>
+                  {tickColor === tickIndex ? <TiTick className='text-white m-1 fs-5'/> : <p className='default-color mx-2'>x</p>}
                 </button>
                 )
               })
             }
+            </div>
+           
           </div>
           <div className='d-flex align-items-center'>
             <button className='bg-transparent border-0 fs-3'><FaPlusCircle/></button>
