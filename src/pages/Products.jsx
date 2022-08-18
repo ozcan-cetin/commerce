@@ -11,6 +11,8 @@ const Products = () => {
   const { products } = useContext(ProductContext);
   const [tickColor, setTickColor] = useState(false)
 
+  const [newProducts, setNewProducts] = useState(products)
+
   const categories= ["All",...new Set(products.map((item)=>item.category))]
 
   const company= ["All",...new Set(products.map((item)=>item.company))]
@@ -22,6 +24,15 @@ const Products = () => {
   const colors=[...new Set(tempColors)]
   // console.log(colors);
 
+  const handleCategory = (category) => {
+    console.log(category);
+    if(category === "all"){
+      setNewProducts(products)
+    }else{
+      setNewProducts(products?.filter((item)=>item.category===category))
+    }
+  }
+ console.log(newProducts);
 
   console.log(products);
   return (
@@ -40,9 +51,9 @@ const Products = () => {
           <ul className="category p-0 m-0">
             <h6>Category</h6>
 {
-  categories.map((item)=>{
+  categories.map((item, categoryIndex)=>{
     return(
-      <li className="text-capitalize list-unstyled">{item}</li>
+      <li className="text-capitalize list-unstyled" onClick={(e)=>handleCategory(e.target.innerText.toLowerCase())}>{item}</li>
     )
   })
 }
@@ -105,7 +116,7 @@ const Products = () => {
             </div>
           </div>
           <div className="main-products-bottom row">
-            {products?.map((product) => {
+            {newProducts?.map((product) => {
               return <SingleProduct key={product.id} product={product} />;
             })}
           </div>

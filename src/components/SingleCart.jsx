@@ -28,18 +28,18 @@ const SingleCart = ({cart, setCart, cartItem}) => {
             <img src={images[0].url} alt={name} />
           </div>
           <div className="d-flex flex-column">
-            <span>{name}</span>
+            <span className='text-capitalize'>{name}</span>
             <span className="d-flex">
               Color:
               {colors.map((item, index) => {
                 return (
-                  <button
+                  <span
                     style={{ backgroundColor: item }}
                     key={index}
                     className="rounded-2 border-0 mx-1"
                   >
                     <p className="cart-default-color mx-2">x</p>
-                  </button>
+                  </span>
                 );
               })}
             </span>

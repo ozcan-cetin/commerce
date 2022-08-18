@@ -97,7 +97,7 @@ console.log(newImages)
               colors?.map((item, tickIndex)=>{
                 return(
                   <button style={{backgroundColor:item}} key={tickIndex} className="rounded-circle border-0 mx-1 " onClick={()=>setTickColor(tickIndex)}>
-                  {tickColor === tickIndex ? <TiTick className='text-white m-1 fs-5'/> : <p className='default-color mx-2'>x</p>}
+                  {tickColor === tickIndex ? <TiTick className='text-white m-1 fs-5'/> : <p className='default-color mx-2'><TiTick/></p>}
                 </button>
                 )
               })
