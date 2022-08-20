@@ -22,7 +22,7 @@ const Products = () => {
 
   // console.log(newProducts);
 
-  console.log(products);
+  // console.log(products);
 
   const categories = ["All", ...new Set(products.map((item) => item.category))];
 
@@ -56,6 +56,7 @@ const Products = () => {
     console.log(category);
     console.log(newCompany);
     console.log(newColor)
+    console.log(price)
     if (category === "all" && newCompany === "all" && newColor === "all" && price === defaultPrice) {
       setNewProducts(products);
     } 
@@ -71,14 +72,32 @@ const Products = () => {
     else if (category === "all" && newCompany === "all" && newColor === "all" && price !== defaultPrice) {
       setNewProducts(products?.filter((item)=>item.price < price));
     }
-    else if (category !== "all" && newCompany !== "all" && newColor === "all") {
+    else if (category !== "all" && newCompany !== "all" && newColor === "all" && price === defaultPrice) {
       setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.company === newCompany));
     }
-    else if (category !== "all" && newCompany === "all" && newColor !== "all") {
+    else if (category !== "all" && newCompany === "all" && newColor !== "all" && price === defaultPrice) {
       setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.colors.includes(newColor)));
     }
-    else if (category === "all" && newCompany !== "all" && newColor !== "all") {
+    else if (category !== "all" && newCompany === "all" && newColor === "all" && price !== defaultPrice) {
+      setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.price < price));
+    }
+    else if (category === "all" && newCompany !== "all" && newColor !== "all" && price === defaultPrice) {
       setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor)));
+    }
+    else if (category === "all" && newCompany !== "all" && newColor === "all" && price !== defaultPrice) {
+      setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.price < price));
+    }
+    else if (category === "all" && newCompany === "all" && newColor !== "all" && price !== defaultPrice) {
+      setNewProducts(products?.filter((item)=>item.colors.includes(newColor))?.filter((item)=>item.price < price));
+    }
+    else if (category !== "all" && newCompany !== "all" && newColor !== "all" && price === defaultPrice) {
+      setNewProducts(products?.filter((item) => item.category === category)?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor)));
+    }
+    else if (category !== "all" && newCompany === "all" && newColor !== "all" && price !== defaultPrice) {
+      setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.colors.includes(newColor))?.filter((item)=>item.price < price));
+    }
+    else if (category === "all" && newCompany !== "all" && newColor !== "all" && price !== defaultPrice) {
+      setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor))?.filter((item)=>item.price < price));
     }
   };
 
