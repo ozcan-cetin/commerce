@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RiOrderPlayFill } from "react-icons/ri";
 import { FaBorderAll } from "react-icons/fa";
@@ -9,32 +9,71 @@ import { TiTick } from "react-icons/ti";
 const Products = () => {
   const navigate = useNavigate();
   const { products } = useContext(ProductContext);
-  const [tickColor, setTickColor] = useState(false)
+  const [tickColor, setTickColor] = useState(false);
+  const [category, setCategory] = useState("all");
+  const [newCompany, setNewCompany] = useState("all");
 
-  const [newProducts, setNewProducts] = useState(products)
+  const [newProducts, setNewProducts] = useState(products);
 
-  const categories= ["All",...new Set(products.map((item)=>item.category))]
-
-  const company= ["All",...new Set(products.map((item)=>item.company))]
-
-  const tempColors=[]
-  // console.log([...new Set(products.map((item)=>item.category))])
-  console.log(products.map((item)=>item.colors.map((color2)=>tempColors.push(color2))))
-  // console.log(products);
-  const colors=[...new Set(tempColors)]
-  // console.log(colors);
-
-  const handleCategory = (category) => {
-    console.log(category);
-    if(category === "all"){
-      setNewProducts(products)
-    }else{
-      setNewProducts(products?.filter((item)=>item.category===category))
-    }
-  }
- console.log(newProducts);
+  console.log(newProducts);
 
   console.log(products);
+
+  const categories = ["All", ...new Set(products.map((item) => item.category))];
+
+  const company = ["All", ...new Set(products.map((item) => item.company))];
+
+  const tempColors = [];
+  // console.log([...new Set(products.map((item)=>item.category))])
+  console.log(
+    products.map((item) => item.colors.map((color2) => tempColors.push(color2)))
+  );
+  // console.log(products);
+  const colors = [...new Set(tempColors)];
+  // console.log(colors);
+
+
+  useEffect(() => {
+    // console.log("test");
+    handleCategory();
+  }, [category, newCompany]);
+
+
+  const handleCategory = () => {
+    console.log(category);
+    console.log(newCompany);
+    if (category === "all" && newCompany === "all") {
+      setNewProducts(products);
+    } 
+    else if (category !== "all" && newCompany === "all") {
+      setNewProducts(products?.filter((item) => item.category === category));
+    }
+    else if (category === "all" && newCompany !== "all") {
+      setNewProducts(products?.filter((item)=>item.company === newCompany));
+    }
+    else if (category !== "all" && newCompany !== "all") {
+      setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.company === newCompany));
+    }
+  };
+
+  // const handleCategory = (category) => {
+  //   // console.log(category);
+  //   if(category === "all"){
+  //     setNewProducts(products)
+  //   }else{
+  //     setNewProducts(products?.filter((item)=>item.category===category))
+  //   }
+  // }
+
+  // const handleCompany = (company) => {
+  //   console.log(company);
+    // if(company === "all"){
+    //   setNewProducts(newProducts)
+    // }else{
+    //   setNewProducts(newProducts?.filter((item)=>item.company===company))
+    // }
+  // }
+  
   return (
     <div>
       <div className="products-header py-2 ">
@@ -44,47 +83,62 @@ const Products = () => {
         </h1>
       </div>
       <main className="container row m-auto mt-3 mt-md-5 p-0">
-
         <div className="search col-2 m-0 p-0">
-         <form action="">
-         <input type="search" placeholder="Search" className="px-1"/>
-          <ul className="category p-0 m-0">
-            <h6>Category</h6>
-{
-  categories.map((item, categoryIndex)=>{
-    return(
-      <li className="text-capitalize list-unstyled" onClick={(e)=>handleCategory(e.target.innerText.toLowerCase())}>{item}</li>
-    )
-  })
-}
-          </ul>
+          <form action="">
+            <input type="search" placeholder="Search" className="px-1" />
+            <ul className="category p-0 m-0">
+              <h6>Category</h6>
+              {categories.map((item, categoryIndex) => {
+                return (
+                  // <li className="text-capitalize list-unstyled" onClick={(e)=>handleCategory(e.target.innerText.toLowerCase())}>{item}</li>
+                  <li
+                    className="text-capitalize list-unstyled"
+                    onClick={(e) =>
+                      setCategory(e.target.innerText.toLowerCase())
+                    }
+                  >
+                    {item}
+                  </li>
+                );
+              })}
+            </ul>
 
-          <h6>Company</h6>
-          <select name="company" id="company">
-            {
-              company.map((item)=>{
-                return(
-                  <option value={item} className="text-capitalize">{item}</option>
-                )
-              })
-            }
-          </select>
+            <h6>Company</h6>
+            {/* <select name="company" id="company" onChange={(e)=>handleCompany(e.target.value.toLowerCase())}> */}
+            <select
+              name="company"
+              id="company"
+              onChange={(e) => 
+                setNewCompany(e.target.value.toLowerCase())
+              }
+            >
+              {company.map((item) => {
+                return (
+                  <option value={item} className="text-capitalize">
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
 
-          <h6>Colors</h6>
-          <button className="border-0 bg-transparent">All</button>
-          {
-            colors.map((item)=>{
-              return(
-                <button style={{backgroundColor:item}} className="rounded-circle border-0 mx-1">
-                  <TiTick className={`fs-5 ${tickColor ? "text-white" : "text-red"}`}/>
+            <h6>Colors</h6>
+            <button className="border-0 bg-transparent">All</button>
+            {colors.map((item) => {
+              return (
+                <button
+                  style={{ backgroundColor: item }}
+                  className="rounded-circle border-0 mx-1"
+                >
+                  <TiTick
+                    className={`fs-5 ${tickColor ? "text-white" : "text-red"}`}
+                  />
                 </button>
-              )
-            })
-          }
+              );
+            })}
 
-          <h6>Price</h6>
-          <input type="range" min="$0" max="" />
-         </form>
+            <h6>Price</h6>
+            <input type="range" min="$0" max="" />
+          </form>
         </div>
 
         <div className="main-products col-10 m-0">
