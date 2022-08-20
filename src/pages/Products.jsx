@@ -9,13 +9,18 @@ import { TiTick } from "react-icons/ti";
 const Products = () => {
   const navigate = useNavigate();
   const { products } = useContext(ProductContext);
+  let highestPrice = []
+  products?.map((item)=>highestPrice.push(item.price))
+  const defaultPrice = Math.max(...highestPrice)
+
   const [tickColor, setTickColor] = useState(false);
   const [category, setCategory] = useState("all");
   const [newCompany, setNewCompany] = useState("all");
-
+  const [newColor, setNewColor] = useState("all")
   const [newProducts, setNewProducts] = useState(products);
+  const [price, setPrice] = useState(defaultPrice)
 
-  console.log(newProducts);
+  // console.log(newProducts);
 
   console.log(products);
 
@@ -25,9 +30,9 @@ const Products = () => {
 
   const tempColors = [];
   // console.log([...new Set(products.map((item)=>item.category))])
-  console.log(
+  // console.log(
     products.map((item) => item.colors.map((color2) => tempColors.push(color2)))
-  );
+  // );
   // console.log(products);
   const colors = [...new Set(tempColors)];
   // console.log(colors);
@@ -36,43 +41,47 @@ const Products = () => {
   useEffect(() => {
     // console.log("test");
     handleCategory();
-  }, [category, newCompany]);
+  }, [category, newCompany, newColor, price]);
+
+
+//! price format
+  const costing= (price) => {
+    return parseFloat(price).toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+  }
+
+
 
 
   const handleCategory = () => {
     console.log(category);
     console.log(newCompany);
-    if (category === "all" && newCompany === "all") {
+    console.log(newColor)
+    if (category === "all" && newCompany === "all" && newColor === "all" && price === defaultPrice) {
       setNewProducts(products);
     } 
-    else if (category !== "all" && newCompany === "all") {
+    else if (category !== "all" && newCompany === "all" && newColor === "all" && price === defaultPrice) {
       setNewProducts(products?.filter((item) => item.category === category));
     }
-    else if (category === "all" && newCompany !== "all") {
+    else if (category === "all" && newCompany !== "all" && newColor === "all" && price === defaultPrice) {
       setNewProducts(products?.filter((item)=>item.company === newCompany));
     }
-    else if (category !== "all" && newCompany !== "all") {
+    else if (category === "all" && newCompany === "all" && newColor !== "all" && price === defaultPrice) {
+      setNewProducts(products?.filter((item)=>item.colors.includes(newColor)));
+    }
+    else if (category === "all" && newCompany === "all" && newColor === "all" && price !== defaultPrice) {
+      setNewProducts(products?.filter((item)=>item.price < price));
+    }
+    else if (category !== "all" && newCompany !== "all" && newColor === "all") {
       setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.company === newCompany));
+    }
+    else if (category !== "all" && newCompany === "all" && newColor !== "all") {
+      setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.colors.includes(newColor)));
+    }
+    else if (category === "all" && newCompany !== "all" && newColor !== "all") {
+      setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor)));
     }
   };
 
-  // const handleCategory = (category) => {
-  //   // console.log(category);
-  //   if(category === "all"){
-  //     setNewProducts(products)
-  //   }else{
-  //     setNewProducts(products?.filter((item)=>item.category===category))
-  //   }
-  // }
-
-  // const handleCompany = (company) => {
-  //   console.log(company);
-    // if(company === "all"){
-    //   setNewProducts(newProducts)
-    // }else{
-    //   setNewProducts(newProducts?.filter((item)=>item.company===company))
-    // }
-  // }
   
   return (
     <div>
@@ -90,7 +99,6 @@ const Products = () => {
               <h6>Category</h6>
               {categories.map((item, categoryIndex) => {
                 return (
-                  // <li className="text-capitalize list-unstyled" onClick={(e)=>handleCategory(e.target.innerText.toLowerCase())}>{item}</li>
                   <li
                     className="text-capitalize list-unstyled"
                     onClick={(e) =>
@@ -104,7 +112,6 @@ const Products = () => {
             </ul>
 
             <h6>Company</h6>
-            {/* <select name="company" id="company" onChange={(e)=>handleCompany(e.target.value.toLowerCase())}> */}
             <select
               name="company"
               id="company"
@@ -122,22 +129,22 @@ const Products = () => {
             </select>
 
             <h6>Colors</h6>
-            <button className="border-0 bg-transparent">All</button>
-            {colors.map((item) => {
+            <div className="d-flex">
+            <span style={{cursor:"pointer"}} className="border-0 bg-transparent" onClick={()=>{setNewColor("all"); setTickColor(false)}}>All</span>
+               {colors.map((item, tickIndex) => {
               return (
-                <button
-                  style={{ backgroundColor: item }}
-                  className="rounded-circle border-0 mx-1"
-                >
-                  <TiTick
-                    className={`fs-5 ${tickColor ? "text-white" : "text-red"}`}
-                  />
-                </button>
+                <span style={{backgroundColor:item, cursor:"pointer"}} key={tickIndex} className="rounded-circle border-0 mx-1" onClick={()=>{setTickColor(tickIndex); setNewColor(item)}}>
+                  {tickColor === tickIndex ? <TiTick className='text-white m-1 fs-5'/> : <TiTick className='product-default-color m-1 fs-5'/>}
+                </span>
               );
             })}
+           
+            </div>
+           
 
             <h6>Price</h6>
-            <input type="range" min="$0" max="" />
+            <p>${costing(price)}</p>
+            <input type="range" min="0" max={Math.max(...highestPrice)} value={price} onChange={(e)=>setPrice(e.target.value)}/>
           </form>
         </div>
 

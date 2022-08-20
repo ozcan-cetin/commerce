@@ -317,6 +317,15 @@ footer span{
   color: #AB7A5F;
 }
 
+.product-default-color{
+  color: transparent;
+  font-size: .1rem;
+}
+
+.color-btn1{
+  background-color:rgb(255,0,0);
+}
+
 /*---------------DETAİLS------------*/
 .details-header{
   background-color:#EADED7!important;
@@ -380,7 +389,8 @@ footer span{
 
 .default-color{
   color: transparent;
-  font-size: .5rem;
+  /* font-size: .5rem; */
+  text-align: center;
 }
 
 /*---------------CART------------*/
