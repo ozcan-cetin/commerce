@@ -19,6 +19,7 @@ const Products = () => {
   const [newColor, setNewColor] = useState("all")
   const [newProducts, setNewProducts] = useState(products);
   const [price, setPrice] = useState(defaultPrice)
+  const [foundedProduct, setFoundedProduct] = useState(23)
 
   // console.log(newProducts);
 
@@ -42,6 +43,10 @@ const Products = () => {
     // console.log("test");
     handleCategory();
   }, [category, newCompany, newColor, price]);
+
+  useEffect(()=>{
+    setFoundedProduct(newProducts.length)
+  },[newProducts])
 
 
 //! price format
@@ -178,7 +183,7 @@ const Products = () => {
                   <RiOrderPlayFill />{" "}
                 </button>
               </div>
-              <span>23 Products Found</span>
+              <span>{foundedProduct} Products Found</span>
             </div>
             <div className="line-through border border-1 border-bottom border-dark col-5 "></div>
             <div className="col-3">
