@@ -6,6 +6,9 @@ import { ProductContext } from "../context/ProductContext";
 import SingleProduct from "../components/SingleProduct";
 import { TiTick } from "react-icons/ti";
 
+const _ = require('underscore'); //! UNDERSCORE********** _.intersection([][][])
+// console.log(_.intersection());
+
 const Products = () => {
   const navigate = useNavigate();
   const { products } = useContext(ProductContext);
@@ -20,6 +23,7 @@ const Products = () => {
   const [newProducts, setNewProducts] = useState(products);
   const [price, setPrice] = useState(defaultPrice)
   const [foundedProduct, setFoundedProduct] = useState(23)
+  const [sortedProduct, setSortedProduct] = useState("Price(Lowest)")
 
   // console.log(newProducts);
 
@@ -62,50 +66,96 @@ const Products = () => {
     console.log(newCompany);
     console.log(newColor)
     console.log(price)
+    //! underscore version************
     if (category === "all" && newCompany === "all" && newColor === "all" && price === defaultPrice) {
       setNewProducts(products);
-    } 
-    else if (category !== "all" && newCompany === "all" && newColor === "all" && price === defaultPrice) {
-      setNewProducts(products?.filter((item) => item.category === category));
+    } else{
+      let tempCategory;
+      let tempCompany;
+      let tempColor;
+      let tempPrice;
+
+      if(category !== "all"){
+        tempCategory = products?.filter((item) => item.category === category)
+      }else{
+        tempCategory= products
+      }
+      if(newCompany !== "all"){
+        tempCompany = products?.filter((item)=>item.company === newCompany)
+      }else{
+        tempCompany = products
+      }
+      if(newColor !== "all"){
+        tempColor = products?.filter((item)=>item.colors.includes(newColor))
+      }else{
+        tempColor = products
+      }
+      if(price !== defaultPrice){
+        tempPrice = products?.filter((item)=>item.price < price)
+      }else{
+        tempPrice = products
+      }
+      // const _ = require('underscore')
+      // console.log(_.intersection(tempCategory, tempCompany, tempColor, tempPrice));
+      setNewProducts(_.intersection(tempCategory, tempCompany, tempColor, tempPrice))
     }
-    else if (category === "all" && newCompany !== "all" && newColor === "all" && price === defaultPrice) {
-      setNewProducts(products?.filter((item)=>item.company === newCompany));
-    }
-    else if (category === "all" && newCompany === "all" && newColor !== "all" && price === defaultPrice) {
-      setNewProducts(products?.filter((item)=>item.colors.includes(newColor)));
-    }
-    else if (category === "all" && newCompany === "all" && newColor === "all" && price !== defaultPrice) {
-      setNewProducts(products?.filter((item)=>item.price < price));
-    }
-    else if (category !== "all" && newCompany !== "all" && newColor === "all" && price === defaultPrice) {
-      setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.company === newCompany));
-    }
-    else if (category !== "all" && newCompany === "all" && newColor !== "all" && price === defaultPrice) {
-      setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.colors.includes(newColor)));
-    }
-    else if (category !== "all" && newCompany === "all" && newColor === "all" && price !== defaultPrice) {
-      setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.price < price));
-    }
-    else if (category === "all" && newCompany !== "all" && newColor !== "all" && price === defaultPrice) {
-      setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor)));
-    }
-    else if (category === "all" && newCompany !== "all" && newColor === "all" && price !== defaultPrice) {
-      setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.price < price));
-    }
-    else if (category === "all" && newCompany === "all" && newColor !== "all" && price !== defaultPrice) {
-      setNewProducts(products?.filter((item)=>item.colors.includes(newColor))?.filter((item)=>item.price < price));
-    }
-    else if (category !== "all" && newCompany !== "all" && newColor !== "all" && price === defaultPrice) {
-      setNewProducts(products?.filter((item) => item.category === category)?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor)));
-    }
-    else if (category !== "all" && newCompany === "all" && newColor !== "all" && price !== defaultPrice) {
-      setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.colors.includes(newColor))?.filter((item)=>item.price < price));
-    }
-    else if (category === "all" && newCompany !== "all" && newColor !== "all" && price !== defaultPrice) {
-      setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor))?.filter((item)=>item.price < price));
-    }
+
+
+
+    // if (category === "all" && newCompany === "all" && newColor === "all" && price === defaultPrice) {
+    //   setNewProducts(products);
+    // } 
+    // else if (category !== "all" && newCompany === "all" && newColor === "all" && price === defaultPrice) {
+    //   setNewProducts(products?.filter((item) => item.category === category));
+    // }
+    // else if (category === "all" && newCompany !== "all" && newColor === "all" && price === defaultPrice) {
+    //   setNewProducts(products?.filter((item)=>item.company === newCompany));
+    // }
+    // else if (category === "all" && newCompany === "all" && newColor !== "all" && price === defaultPrice) {
+    //   setNewProducts(products?.filter((item)=>item.colors.includes(newColor)));
+    // }
+    // else if (category === "all" && newCompany === "all" && newColor === "all" && price !== defaultPrice) {
+    //   setNewProducts(products?.filter((item)=>item.price < price));
+    // }
+    // else if (category !== "all" && newCompany !== "all" && newColor === "all" && price === defaultPrice) {
+    //   setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.company === newCompany));
+    // }
+    // else if (category !== "all" && newCompany === "all" && newColor !== "all" && price === defaultPrice) {
+    //   setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.colors.includes(newColor)));
+    // }
+    // else if (category !== "all" && newCompany === "all" && newColor === "all" && price !== defaultPrice) {
+    //   setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.price < price));
+    // }
+    // else if (category === "all" && newCompany !== "all" && newColor !== "all" && price === defaultPrice) {
+    //   setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor)));
+    // }
+    // else if (category === "all" && newCompany !== "all" && newColor === "all" && price !== defaultPrice) {
+    //   setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.price < price));
+    // }
+    // else if (category === "all" && newCompany === "all" && newColor !== "all" && price !== defaultPrice) {
+    //   setNewProducts(products?.filter((item)=>item.colors.includes(newColor))?.filter((item)=>item.price < price));
+    // }
+    // else if (category !== "all" && newCompany !== "all" && newColor !== "all" && price === defaultPrice) {
+    //   setNewProducts(products?.filter((item) => item.category === category)?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor)));
+    // }
+    // else if (category !== "all" && newCompany === "all" && newColor !== "all" && price !== defaultPrice) {
+    //   setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.colors.includes(newColor))?.filter((item)=>item.price < price));
+    // }
+    // else if (category === "all" && newCompany !== "all" && newColor !== "all" && price !== defaultPrice) {
+    //   setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor))?.filter((item)=>item.price < price));
+    // }
   };
 
+  console.log(Object
+    .entries(newProducts?.map((item)=>item.price)
+    .sort((a, b) => a[1] - b[1])))
+//! *************************************SORT THE PRODUCTS
+const sortProducts = () => {
+console.log(sortedProduct);
+if (sortedProduct === "Price(Lowest)"){
+  const newStatus = newProducts?.map((item)=>item.price).sort(function(a,b){return a-b})
+}
+  }
   
   return (
     <div>
@@ -119,6 +169,8 @@ const Products = () => {
         <div className="search col-2 m-0 p-0">
           <form action="">
             <input type="search" placeholder="Search" className="px-1" />
+
+            {/* //! *********************************** CATEGORY */}
             <ul className="category p-0 m-0">
               <h6>Category</h6>
               {categories.map((item, categoryIndex) => {
@@ -134,7 +186,7 @@ const Products = () => {
                 );
               })}
             </ul>
-
+            {/* //! *********************************** COMPANY */}
             <h6>Company</h6>
             <select
               name="company"
@@ -151,7 +203,7 @@ const Products = () => {
                 );
               })}
             </select>
-
+            {/* //! *********************************** COLORS */}
             <h6>Colors</h6>
             <div className="d-flex">
             <span style={{cursor:"pointer"}} className="border-0 bg-transparent" onClick={()=>{setNewColor("all"); setTickColor(false)}}>All</span>
@@ -162,10 +214,9 @@ const Products = () => {
                 </span>
               );
             })}
-           
             </div>
            
-
+            {/* //! *********************************** PRICE */}
             <h6>Price</h6>
             <p>${costing(price)}</p>
             <input type="range" min="0" max={Math.max(...highestPrice)} value={price} onChange={(e)=>setPrice(e.target.value)}/>
@@ -185,6 +236,7 @@ const Products = () => {
               </div>
               <span>{foundedProduct} Products Found</span>
             </div>
+            {/* //! *********************************** SORT PRODUCTS */}
             <div className="line-through border border-1 border-bottom border-dark col-5 "></div>
             <div className="col-3">
               <span className="me-2">Sort By</span>
@@ -192,6 +244,7 @@ const Products = () => {
                 name="select"
                 id="select"
                 className="border-0 bg-transparent"
+                onChange={(e)=>setSortedProduct(e.target.value)}
               >
                 <option value="Price(Lowest)">Price(Lowest)</option>
                 <option value="Price(Highest)">Price(Highest)</option>
