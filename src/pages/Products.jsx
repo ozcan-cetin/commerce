@@ -170,37 +170,17 @@ if (sortedProduct === "Price(Highest)"){
 setNewProducts(newStatus?.sort((a,b)=>b.price - a.price))
 empty = []
 }
-// if (sortedProduct === "Name(A-Z)"){
-//   const newStatus = empty.concat(newProducts)
-// setNewProducts(newStatus?.sort((a, b)=>a.name))
-// empty = []
-// }
-if(sortedProduct === "Name(A-Z)"){
-  let names=newProducts.map((item)=>item.name)
-  names.sort()
-  let result=[]
-  for(let i=0;i<names.length;i++){
-    for(let k=0;k<newProducts.length;k++){
-      if(names[i]===newProducts[k].name){
-        result.push(newProducts[k])
-      }
-    }
-  }
-  setNewProducts(result)
+if (sortedProduct === "Name(A-Z)"){
+  const newStatus = empty.concat(newProducts)
+setNewProducts(_.sortBy(newStatus, 'name'))
+empty = []
 }
-// if(sortedProduct === "Name(Z-A)"){
-//   let names=newProducts.map((item)=>item.name)
-//   names.reverse()
-//   let result=[]
-//   for(let i=0;i<names.length;i++){
-//     for(let k=0;k<newProducts.length;k++){
-//       if(names[i]===newProducts[k].name){
-//         result.push(newProducts[k])
-//       }
-//     }
-//   }
-//   setNewProducts(result)
-// }
+if (sortedProduct === "Name(Z-A)"){
+  const newStatus = empty.concat(newProducts)
+setNewProducts(_.sortBy(newStatus, 'name').reverse())
+empty = []
+}
+
   }
 
   
