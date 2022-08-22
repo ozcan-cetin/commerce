@@ -52,6 +52,10 @@ const Products = () => {
     setFoundedProduct(newProducts.length)
   },[newProducts])
 
+  useEffect(()=>{
+    sortProducts()
+  },[sortedProduct])
+
 
 //! price format
   const costing= (price) => {
@@ -62,10 +66,10 @@ const Products = () => {
 
 
   const handleCategory = () => {
-    console.log(category);
-    console.log(newCompany);
-    console.log(newColor)
-    console.log(price)
+    // console.log(category);
+    // console.log(newCompany);
+    // console.log(newColor)
+    // console.log(price)
     //! underscore version************
     if (category === "all" && newCompany === "all" && newColor === "all" && price === defaultPrice) {
       setNewProducts(products);
@@ -146,17 +150,61 @@ const Products = () => {
     // }
   };
 
-  console.log(Object
-    .entries(newProducts?.map((item)=>item.price)
-    .sort((a, b) => a[1] - b[1])))
+// const liste = [{a:5, b:"ali"}, {a:3, b:"veli"}, {a:3, b:"deli"}, {a:1, b:"ali"}]
+// const newliste = []
+// const yepyeni = newliste.concat(liste)
+// console.log(yepyeni.sort((a,b)=>a.a - b.a))
+// console.log(liste)
+
 //! *************************************SORT THE PRODUCTS
 const sortProducts = () => {
+  let empty = []
 console.log(sortedProduct);
 if (sortedProduct === "Price(Lowest)"){
-  const newStatus = newProducts?.map((item)=>item.price).sort(function(a,b){return a-b})
+  const newStatus = empty.concat(newProducts)
+setNewProducts(newStatus?.sort((a,b)=>a.price - b.price))
+empty = []
 }
+if (sortedProduct === "Price(Highest)"){
+  const newStatus = empty.concat(newProducts)
+setNewProducts(newStatus?.sort((a,b)=>b.price - a.price))
+empty = []
+}
+// if (sortedProduct === "Name(A-Z)"){
+//   const newStatus = empty.concat(newProducts)
+// setNewProducts(newStatus?.sort((a, b)=>a.name))
+// empty = []
+// }
+if(sortedProduct === "Name(A-Z)"){
+  let names=newProducts.map((item)=>item.name)
+  names.sort()
+  let result=[]
+  for(let i=0;i<names.length;i++){
+    for(let k=0;k<newProducts.length;k++){
+      if(names[i]===newProducts[k].name){
+        result.push(newProducts[k])
+      }
+    }
   }
+  setNewProducts(result)
+}
+// if(sortedProduct === "Name(Z-A)"){
+//   let names=newProducts.map((item)=>item.name)
+//   names.reverse()
+//   let result=[]
+//   for(let i=0;i<names.length;i++){
+//     for(let k=0;k<newProducts.length;k++){
+//       if(names[i]===newProducts[k].name){
+//         result.push(newProducts[k])
+//       }
+//     }
+//   }
+//   setNewProducts(result)
+// }
+  }
+
   
+   
   return (
     <div>
       <div className="products-header py-2 ">
