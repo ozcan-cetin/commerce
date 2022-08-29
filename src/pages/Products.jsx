@@ -5,13 +5,16 @@ import { FaBorderAll } from "react-icons/fa";
 import { ProductContext } from "../context/ProductContext";
 import SingleProduct from "../components/SingleProduct";
 import { TiTick } from "react-icons/ti";
+import { BsList } from "react-icons/bs";
+import {  BiGridSmall} from "react-icons/bi";
+
 
 const _ = require('underscore'); //! UNDERSCORE********** _.intersection([][][])
 // console.log(_.intersection());
 
 const Products = () => {
   const navigate = useNavigate();
-  const { products } = useContext(ProductContext);
+  const { products, loading } = useContext(ProductContext);
   let highestPrice = []
   products?.map((item)=>highestPrice.push(item.price))
   const defaultPrice = Math.max(...highestPrice)
@@ -28,6 +31,7 @@ const Products = () => {
   // console.log(newProducts);
 
   // console.log(products);
+  console.log(loading)
 
   const categories = ["All", ...new Set(products.map((item) => item.category))];
 
@@ -55,6 +59,12 @@ const Products = () => {
   useEffect(()=>{
     sortProducts()
   },[sortedProduct])
+
+  useEffect(()=>{
+    if(!loading){
+setNewProducts(products)
+    }
+  },[loading])
 
 
 //! price format
@@ -159,7 +169,7 @@ const Products = () => {
 //! *************************************SORT THE PRODUCTS
 const sortProducts = () => {
   let empty = []
-console.log(sortedProduct);
+// console.log(sortedProduct);
 if (sortedProduct === "Price(Lowest)"){
   const newStatus = empty.concat(newProducts)
 setNewProducts(newStatus?.sort((a,b)=>a.price - b.price))
@@ -186,6 +196,9 @@ empty = []
   
    
   return (
+    <>
+    {!loading 
+    ?    
     <div>
       <div className="products-header py-2 ">
         <h1 className="products-h1 p-3 container">
@@ -289,6 +302,11 @@ empty = []
         </div>
       </main>
     </div>
+    :
+    <h1>Loading...</h1>
+  }
+    </>
+
   );
 };
 export default Products;
