@@ -3,7 +3,7 @@ import { FaPlusCircle, FaMinusCircle, FaTrash } from "react-icons/fa";
 import { ProductContext } from '../context/ProductContext';
 
 const SingleCart = ({cartItem}) => {
-const {id, amount, detail, color} = cartItem
+const {id, amount, detail, color, date} = cartItem
 // console.log(cartItem);
 // console.log(detail.images[0])
 // const [quantity, setQuantity] = useState(amount)
@@ -26,6 +26,9 @@ const increaseQuantity = (id) =>{
     amount < 10 ? newCart[0].amount=amount+1 : newCart[0].amount=amount
   let testcart=cart.filter((item)=>item.id!==id)
   setCart([...testcart, ...newCart])
+  // let tempcart=cart
+  // setCart(tempcart.sort((a,b)=>a.date-b.date))
+  // console.log(tempcart)
     } }
 const decreaseQuantity = (id) =>{
   if(cart.length>0){
@@ -34,6 +37,8 @@ const decreaseQuantity = (id) =>{
  
   let testcart=cart.filter((item)=>item.id!==id)
   setCart([...testcart, ...newCart])
+  // let tempcart=cart.sort((a,b)=>a.date-b.date)
+  // setCart(tempcart)
     } }
 
   return (

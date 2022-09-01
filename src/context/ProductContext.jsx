@@ -33,6 +33,8 @@ const [cart, setCart] = useState(
 );
 
 useEffect(() => {
+  // cart && cart.sort((a,b)=>a.date-b.date)
+  // setCart(cart.sort((a,b)=>a.date-b.date))
   localStorage.setItem('cart', JSON.stringify(cart))
 }, [cart]);
 

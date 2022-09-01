@@ -28,6 +28,7 @@ const Products = () => {
   const [price, setPrice] = useState(defaultPrice || 400)
   const [foundedProduct, setFoundedProduct] = useState(23)
   const [sortedProduct, setSortedProduct] = useState("Price(Lowest)")
+  const [searchTerm, setSearchTerm] = useState("")
 
   // console.log(newProducts);
 
@@ -48,6 +49,7 @@ const Products = () => {
   const colors = [...new Set(tempColors)];
   // console.log(colors);
 
+
   useEffect(() => {
     if (products.length>0 && !loading) {
       setNewProducts(products);
@@ -60,7 +62,7 @@ const Products = () => {
     // console.log("test");
       handleCategory()
     // console.log("handle");
-  }, [category, newCompany, newColor, price]);
+  }, [category, newCompany, newColor, price, searchTerm]);
 
   useEffect(() => {
     setFoundedProduct(newProducts.length);
@@ -102,7 +104,8 @@ const Products = () => {
       category === "all" &&
       newCompany === "all" &&
       newColor === "all" &&
-      price === defaultPrice
+      price === defaultPrice &&
+      searchTerm === ""
     ) {
       // console.log("if")
       // console.log(products)
@@ -113,6 +116,7 @@ const Products = () => {
       let tempCompany=[]
       let tempColor=[]
       let tempPrice=[]
+      let tempSearch=[]
 
       if (category !== "all") {
         tempCategory = products?.filter((item) => item.category === category);
@@ -131,13 +135,18 @@ const Products = () => {
         tempColor = products || newProducts;
       }
       if (price !== defaultPrice) {
-        tempPrice = products?.filter((item) => item.price < price);
+        tempPrice = products?.filter((item) => item.price <= price);
       } else {
         tempPrice = products || newProducts;
       }
+      if (searchTerm !== "") {
+        tempSearch = products?.filter((item)=>item.name.includes(searchTerm));
+      } else {
+        tempSearch = products || newProducts;
+      }
       // const _ = require('underscore')
       // console.log(_.intersection(tempCategory, tempCompany, tempColor, tempPrice));
-      setNewProducts(_.intersection(tempCategory, tempCompany, tempColor, tempPrice))
+      setNewProducts(_.intersection(tempCategory, tempCompany, tempColor, tempPrice, tempSearch))
     }
 
 
@@ -232,7 +241,7 @@ const Products = () => {
       <main className="container row m-auto mt-3 mt-md-5 p-0">
         <div className="search col-2 m-0 p-0">
           <form action="">
-            <input type="search" placeholder="Search" className="px-1" />
+            <input type="search" placeholder="Search" value={searchTerm} className="px-1" onChange={(e)=>setSearchTerm(e.target.value)}/>
 
             {/* //! *********************************** CATEGORY */}
             <ul className="category p-0 m-0">

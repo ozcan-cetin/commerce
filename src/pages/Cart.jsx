@@ -17,7 +17,8 @@ const Cart = () => {
   // }, [])
   const {cart, setCart} = useContext(ProductContext)
 
-  // console.log(cart)
+  cart.sort((a,b)=>a.date-b.date)
+  console.log(cart)
   
   
   // console.log(location.state);
@@ -47,7 +48,7 @@ const Cart = () => {
         {/* </div> */}
         </div>
         <hr className="container"/>
-      {cart?.map((cartItem)=> <SingleCart key={cartItem.id} cartItem={cartItem}/>)}
+      {cart?.map((cartItem, index)=> <SingleCart key={index} cartItem={cartItem}/>)}
 <div className="cart-bottom-button container d-flex justify-content-between mb-3">
   <button onClick={()=>navigate("/products")}>Continue Shopping</button>
   <button onClick={()=>setCart([])}>Clear Shopping Cart</button>

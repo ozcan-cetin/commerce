@@ -46,10 +46,9 @@ console.log(newImages)
 
 // console.log(images);
 // console.log(colors[tickColor])
-
 const addToCart = () =>{
-  // const id = new Date().getTime();
-  const newcart = { id: id, detail: detail, amount:amount, color:colors[tickColor] };
+  const date = new Date().getTime();
+  const newcart = { id: id, detail: detail, amount:amount, color:colors[tickColor], date:date};
   setCart([...cart, newcart]);
   // setDetail([])
   // setAmount(1)
