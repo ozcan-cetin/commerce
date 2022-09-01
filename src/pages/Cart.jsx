@@ -17,7 +17,7 @@ const Cart = () => {
   // }, [])
   const {cart, setCart} = useContext(ProductContext)
 
-  console.log(cart)
+  // console.log(cart)
   
   
   // console.log(location.state);

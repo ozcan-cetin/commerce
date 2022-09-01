@@ -4,49 +4,38 @@ import { ProductContext } from '../context/ProductContext';
 
 const SingleCart = ({cartItem}) => {
 const {id, amount, detail} = cartItem
-console.log(cartItem);
-console.log(detail.images[0])
-const [quantity, setQuantity] = useState(amount)
+// console.log(cartItem);
+// console.log(detail.images[0])
+// const [quantity, setQuantity] = useState(amount)
 const {cart, setCart} = useContext(ProductContext)
 
+const handleClick = (id) => {
+    // console.log(id);
+    const newCart = cart.filter((item)=>item.id !== id)
+    setCart(newCart)    
+  }
+// useEffect(() => {
+//   setQuantity(quantity === 10 ? quantity : quantity + 1)
+//   changeQuantity()
+// }, [amount])
 
 
-    // console.log(cartItem[0].quantity);
-    // const [amount, setAmount] = useState(cartItem[0].quantity)
-    // const{id, name, stock, price, colors, images}=cartItem[0].item
-    // console.log(cartItem[0].item);
+const increaseQuantity = (id) =>{
+  if(cart.length>0){
+    let newCart = cart.filter((item)=>item.id===id)
+    amount < 10 ? newCart[0].amount=amount+1 : newCart[0].amount=amount
+  let testcart=cart.filter((item)=>item.id!==id)
+  setCart([...testcart, ...newCart])
+    } }
+const decreaseQuantity = (id) =>{
+  if(cart.length>0){
+    let newCart = cart.filter((item)=>item.id===id)
+    amount > 1 ? newCart[0].amount=amount-1 : newCart[0].amount=amount
+ 
+  let testcart=cart.filter((item)=>item.id!==id)
+  setCart([...testcart, ...newCart])
+    } }
 
-    // const handleClick = (id) => {
-    //     console.log(id);
-    //     const newCart = cart.filter((delItem)=>delItem[0].item.id !== id)
-    //     setCart(newCart)
-    // }
-    // useEffect(() => {
-    //  changeQuantity()
-    // }, [])
-    const handleClick = (id) => {
-        // console.log(id);
-        const newCart = cart.filter((item)=>item.id !== id)
-        setCart(newCart)    
-      }
-    const changeQuantity = (id) =>{
-      setQuantity(amount === 10 ? amount : amount + 1)
-      let newCart = cart.filter((item)=>item.id===id)
-      newCart[0].amount=quantity
-      // newCart = [...newCart, {"amount":quantity}]
-      // const newCart = {...cartItem, amount:quantity}
-      setCart([...cart, newCart])
-      // console.log(newCart);
-      // console.log(cartItem);
-      // console.log(quantity)
-    }
-
-    // const liste =[{id:1, a:5, b:6},{id:2, c:8}]
-    // console.log(liste);
-    // const newlist = liste.filter((item)=>item.id===2)
-    // newlist[0].c=10
-    // console.log(newlist[0].c)
-    // console.log(liste);
   return (
     <div>
         <div className="container">
@@ -85,10 +74,10 @@ const {cart, setCart} = useContext(ProductContext)
             <span>${String(detail.price).slice(0, 3) + "." + String(detail.price).slice(3)}</span>
           </div>
           <div className='details-minusplusDiv d-flex align-items-center col-3 gap-2'>
-            {/* <button className='border-0 fs-3' onClick={()=>setQuantity(amount === 10 ? amount : amount + 1)}><FaPlusCircle/></button> */}
-            <button className='border-0 fs-3' onClick={()=>changeQuantity(id)}><FaPlusCircle/></button>
-            <h3 className='m-0'>{quantity}</h3>
-            <button className='border-0 fs-3' onClick={()=>setQuantity(amount === 1 ? amount : amount - 1)}><FaMinusCircle/></button>
+            {/* <button className='border-0 fs-3' onClick={()=>setQuantity(quantity === 10 ? quantity : quantity + 1)}><FaPlusCircle/></button> */}
+            <button className='border-0 fs-3 plus' onClick={()=>increaseQuantity(id)}><FaPlusCircle/></button>
+            <h3 className='m-0'>{amount}</h3>
+            <button className='border-0 fs-3 minus' onClick={()=>decreaseQuantity(id)}><FaMinusCircle/></button>
           </div>
           <div className="col-2">
           ${String(Number(amount)*Number(detail.price)).slice(0, 3) + "." + String(Number(amount)*Number(detail.price)).slice(3)}

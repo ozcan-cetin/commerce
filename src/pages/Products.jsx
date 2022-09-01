@@ -16,9 +16,9 @@ const Products = () => {
   const navigate = useNavigate();
   const { products, loading } = useContext(ProductContext);
   let highestPrice =products && products.map((item) => item.price);
-  console.log(highestPrice);
+  // console.log(highestPrice);
   const defaultPrice = Math.max(...highestPrice);
-  console.log(typeof(defaultPrice));
+  // console.log(typeof(defaultPrice));
 
   const [tickColor, setTickColor] = useState(false);
   const [category, setCategory] = useState("all");
@@ -33,7 +33,7 @@ const Products = () => {
 
 
   // console.log(products);
-  console.log(loading)
+  // console.log(loading)
 
   const categories = ["All", ...new Set(products.map((item) => item.category))];
 
@@ -51,27 +51,27 @@ const Products = () => {
   useEffect(() => {
     if (products.length>0 && !loading) {
       setNewProducts(products);
-      console.log("loading")
+      // console.log("loading")
 
     }
   }, [products]);
 
   useEffect(() => {
-    console.log("test");
+    // console.log("test");
       handleCategory()
-    console.log("handle");
+    // console.log("handle");
   }, [category, newCompany, newColor, price]);
 
   useEffect(() => {
     setFoundedProduct(newProducts.length);
-    console.log("first")
-    console.log(newProducts);
-    console.log(category);
+    // console.log("first")
+    // console.log(newProducts);
+    // console.log(category);
   }, [newProducts]);
 
   useEffect(() => {
     sortProducts();
-    console.log("sort")
+    // console.log("sort")
   }, [sortedProduct]);
 
   // const isLoading = () =>{
@@ -89,11 +89,11 @@ const Products = () => {
 
   const handleCategory = () => {
     if(!loading){
-      console.log("first if")
-      console.log(newProducts)
+      // console.log("first if")
+      // console.log(newProducts)
     }
  
-    console.log(category);
+    // console.log(category);
     // console.log(newCompany);
     // console.log(newColor)
     // console.log(price)
@@ -104,9 +104,9 @@ const Products = () => {
       newColor === "all" &&
       price === defaultPrice
     ) {
-      console.log("if")
-      console.log(products)
-      console.log(newProducts)
+      // console.log("if")
+      // console.log(products)
+      // console.log(newProducts)
       setNewProducts(products);
     } else {
       let tempCategory=[]

@@ -52,7 +52,7 @@ const addToCart = () =>{
   setCart([...cart, newcart]);
   // setDetail([])
   // setAmount(1)
-  navigate("/cart")
+  navigate("/cart", {state:setAmount})
 }
   return (
     <div>
