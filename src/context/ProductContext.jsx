@@ -28,8 +28,16 @@ useEffect(() => {
   getProducts()
 }, [])
 
+const [cart, setCart] = useState(
+  JSON.parse(localStorage.getItem('cart')) || []
+);
+
+useEffect(() => {
+  localStorage.setItem('cart', JSON.stringify(cart))
+}, [cart]);
+
   return (
-    <ProductContext.Provider value={{featured, products, loading}}>
+    <ProductContext.Provider value={{featured, products, loading, cart, setCart}}>
       {children}
     </ProductContext.Provider>
   )

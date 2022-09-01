@@ -6,11 +6,12 @@ import { TiTick } from "react-icons/ti";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaMinusCircle } from "react-icons/fa";
 import { ProductContext } from '../context/ProductContext';
+import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
 const Details = () => {
   const navigate = useNavigate();
   const {id} =useParams();
   const [detail,setDetail]=useState([])
-  const {loading, setLoading} = useContext(ProductContext)
+  const {loading, setLoading, cart, setCart} = useContext(ProductContext)
   const [index, setIndex] = useState(0)
   const [tickColor, setTickColor] = useState(0)
   const [amount, setAmount] = useState(1)
@@ -32,18 +33,27 @@ const getProductDetails= async()=>{
     // setLoading(false)
   }
 }
-console.log(detail);
+// console.log(detail);
   useEffect(() => {
     getProductDetails()
   }, [])
   // console.log(getProductDetails)
 
-const {name, reviews, price, description, stock, company, colors, images} = detail
+const {name, reviews, price, description, stock, company, colors, images, stars} = detail
 
 const newImages = images?.map((item)=>item.thumbnails.large.url)
 console.log(newImages)
 
 // console.log(images);
+
+const addToCart = () =>{
+  // const id = new Date().getTime();
+  const newcart = { id: id, detail: detail, amount:amount };
+  setCart([...cart, newcart]);
+  // setDetail([])
+  // setAmount(1)
+  navigate("/cart")
+}
   return (
     <div>
       <div className="details-header py-2 ">
@@ -76,13 +86,23 @@ console.log(newImages)
 
         <div className="details-content col-md-6">
           <h1 className='text-capitalize'>{name}</h1>
-          <div className="stars">
-            <span><AiOutlineStar/></span>
-            <span><AiOutlineStar/></span>
-            <span><AiOutlineStar/></span>
-            <span><AiOutlineStar/></span>
-            <span><AiOutlineStar/></span>
-            <span>({reviews} customer reviews)</span>
+          < div className="stars fs-4 d-flex align-items-center flex-row text-warning">
+            <span className="d-flex align-items-center">
+              {stars >=1 ? <BsStarFill/> : stars>=0.5 ? <BsStarHalf/> : <BsStar/>}
+            </span>
+            <span className="d-flex align-items-center">
+              {stars >=2 ? <BsStarFill/> : stars>=1.5 ? <BsStarHalf/> : <BsStar/>}
+            </span>
+            <span className="d-flex align-items-center">
+              {stars >=3 ? <BsStarFill/> : stars>=2.5 ? <BsStarHalf/> : <BsStar/>}
+            </span>
+            <span className="d-flex align-items-center">
+              {stars >=4 ? <BsStarFill/> : stars>=3.5 ? <BsStarHalf/> : <BsStar/>}
+            </span>
+            <span className="d-flex align-items-center">
+              {stars ==5 ? <BsStarFill/> : stars>=4.5 ? <BsStarHalf/> : <BsStar/>}
+            </span>
+            <span className="single-detail-review d-flex align-items-center fs-5 ps-2">({reviews} customer reviews)</span>
           </div>
           <h3> ${String(price).slice(0, 3) + "." + String(price).slice(3)}</h3>
           <p>{description}</p>
@@ -110,7 +130,8 @@ console.log(newImages)
             <h3 className='m-0'>{amount}</h3>
             <button className='border-0 fs-3' onClick={()=>setAmount(amount === 1 ? amount : amount - 1)}><FaMinusCircle/></button>
           </div>
-          <button onClick={()=>navigate("/cart", {state:{quantity:amount, item:detail}})} className="cartBtn p-2 border-0 rounded-2 my-1">ADD TO CART</button>
+          {/* <button onClick={()=>navigate("/cart", {state:{quantity:amount, item:detail}})} className="cartBtn p-2 border-0 rounded-2 my-1">ADD TO CART</button> */}
+          <button onClick={addToCart} className="cartBtn p-2 border-0 rounded-2 my-1">ADD TO CART</button>
         </div>
       </div>
     </div>
