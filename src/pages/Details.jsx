@@ -45,10 +45,11 @@ const newImages = images?.map((item)=>item.thumbnails.large.url)
 console.log(newImages)
 
 // console.log(images);
+// console.log(colors[tickColor])
 
 const addToCart = () =>{
   // const id = new Date().getTime();
-  const newcart = { id: id, detail: detail, amount:amount };
+  const newcart = { id: id, detail: detail, amount:amount, color:colors[tickColor] };
   setCart([...cart, newcart]);
   // setDetail([])
   // setAmount(1)

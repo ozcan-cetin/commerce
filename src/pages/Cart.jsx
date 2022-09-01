@@ -30,11 +30,21 @@ const Cart = () => {
         </h1>
       </div>
       {/* {cart?.map((cartItem, index)=> <SingleCart cart={cart} setCart={setCart} cartItem={cartItem} key={index}/>)} */}
-      <div className="d-flex justify-content-center container">
-          <span className="col-2 text-center">Item</span>
-          <span className="col-2">Price</span>
-          <span className="col-3 ">Quantity</span>
-          <span className="col-2">Subtotal</span>
+      <div className="container p-0">
+        <ul className="d-flex justify-content-around">
+          <li>Item</li>
+          <li>Price</li>
+          <li>Quantity</li>
+          <li>Subtotal</li>
+          {/* <li>Subtotal</li> */}
+        </ul>
+        {/* <div className="d-flex justify-content-evenly"> */}
+          <span className="mx-auto">Item</span>
+          <span className="mx-auto">Price</span>
+          <span className="mx-auto">Quantity</span>
+          <span className="mx-auto">Subtotal</span>
+          {/* <span className="mx-auto"></span>*/}
+        {/* </div> */}
         </div>
         <hr className="container"/>
       {cart?.map((cartItem)=> <SingleCart key={cartItem.id} cartItem={cartItem}/>)}

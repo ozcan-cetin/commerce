@@ -3,7 +3,7 @@ import { FaPlusCircle, FaMinusCircle, FaTrash } from "react-icons/fa";
 import { ProductContext } from '../context/ProductContext';
 
 const SingleCart = ({cartItem}) => {
-const {id, amount, detail} = cartItem
+const {id, amount, detail, color} = cartItem
 // console.log(cartItem);
 // console.log(detail.images[0])
 // const [quantity, setQuantity] = useState(amount)
@@ -39,14 +39,7 @@ const decreaseQuantity = (id) =>{
   return (
     <div>
         <div className="container">
-        {/* <div className="d-flex justify-content-center row">
-          <span className="col-2 text-center">Item</span>
-          <span className="col-2">Price</span>
-          <span className="col-3 ">Quantity</span>
-          <span className="col-2">Subtotal</span>
-        </div>
-        <hr /> */}
-        <div className="d-flex justify-content-center align-items-center row my-5">
+         <div className="d-flex justify-content-evenly align-items-center row my-5">
           <div className="d-flex justify-content-start align-items-center col-3 gap-3">
             <div className="cart-img">
             <img src={detail.images[0].url} alt={detail.images[0]} />
@@ -54,8 +47,8 @@ const decreaseQuantity = (id) =>{
           <div className="d-flex flex-column">
             <span className='text-capitalize'>{detail.name}</span>
             <span className="d-flex">
-              Color:
-              {detail.colors.map((item, index) => {
+              Color:{ <span style={{ backgroundColor: color }} className="rounded-2 border-0 mx-1"><p className="cart-default-color mx-2">x</p></span> }
+              {/* {detail.colors.map((item, index) => {
                 return (
                   <span
                     style={{ backgroundColor: item }}
@@ -65,7 +58,7 @@ const decreaseQuantity = (id) =>{
                     <p className="cart-default-color mx-2">x</p>
                   </span>
                 );
-              })}
+              })} */}
             </span>
           </div>
           </div>
