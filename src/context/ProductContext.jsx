@@ -2,14 +2,17 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import axios from "axios"
 import { createContext } from 'react'
+
 let url="https://course-api.com/react-store-products"
 let singleUrl="https://course-api.com/react-store-single-product?id="
+
 export const ProductContext=createContext()
 const ProductContextProvider = ({children}) => {
 const [featured,setFeatured]=useState([])
 const [products,setProducts]=useState([])
 const [loading,setLoading]=useState(false)
 const [defaultPrice, setDefaultPrice] = useState([])
+
 const getProducts=async()=>{
   setLoading(true);
   try{
@@ -25,6 +28,7 @@ const getProducts=async()=>{
     setLoading(false)
   }
 }
+
 // console.log(featured);
 useEffect(() => {
   getProducts()
@@ -35,8 +39,6 @@ const [cart, setCart] = useState(
 );
 
 useEffect(() => {
-  // cart && cart.sort((a,b)=>a.date-b.date)
-  // setCart(cart.sort((a,b)=>a.date-b.date))
   localStorage.setItem('cart', JSON.stringify(cart))
 }, [cart]);
 

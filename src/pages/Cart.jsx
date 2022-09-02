@@ -6,15 +6,9 @@ import { ProductContext } from "../context/ProductContext";
 
 const Cart = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   // const{state}=useLocation() //! bu daha mantıklı
-  // const [cart, setCart] = useState([])
 
-  // console.log(location);
-
-  // useEffect(() => {
-  //  setCart([...cart, [location.state]])
-  // }, [])
   const {cart, setCart} = useContext(ProductContext)
 
   cart.sort((a,b)=>a.date-b.date)
