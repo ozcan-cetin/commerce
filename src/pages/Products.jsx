@@ -13,29 +13,21 @@ const _ = require('underscore'); //! UNDERSCORE********** _.intersection([][][])
 // console.log(_.intersection());
 
 const Products = () => {
+
   const navigate = useNavigate();
-  const { products, loading } = useContext(ProductContext);
-  let highestPrice =products && products.map((item) => item.price);
-  // console.log(highestPrice);
-  const defaultPrice = Math.max(...highestPrice);
-  // console.log(typeof(defaultPrice));
+  const { products, loading, defaultPrice } = useContext(ProductContext);
 
   const [tickColor, setTickColor] = useState(false);
   const [category, setCategory] = useState("all");
   const [newCompany, setNewCompany] = useState("all");
   const [newColor, setNewColor] = useState("all")
   const [newProducts, setNewProducts] = useState(products);
-  const [price, setPrice] = useState(defaultPrice || 400)
+  const [price, setPrice] = useState(defaultPrice)
   const [foundedProduct, setFoundedProduct] = useState(23)
   const [sortedProduct, setSortedProduct] = useState("Price(Lowest)")
   const [searchTerm, setSearchTerm] = useState("")
 
-  // console.log(newProducts);
-
-
-  // console.log(products);
-  // console.log(loading)
-
+ {/* //TODO *********************************** SIDE BAR */}
   const categories = ["All", ...new Set(products.map((item) => item.category))];
 
   const company = ["All", ...new Set(products.map((item) => item.company))];
@@ -48,13 +40,14 @@ const Products = () => {
   // console.log(products);
   const colors = [...new Set(tempColors)];
   // console.log(colors);
+   {/* //TODO *********************************** SIDE BAR */}
 
 
   useEffect(() => {
     if (products.length>0 && !loading) {
       setNewProducts(products);
+      setPrice(defaultPrice)
       // console.log("loading")
-
     }
   }, [products]);
 
@@ -76,11 +69,6 @@ const Products = () => {
     // console.log("sort")
   }, [sortedProduct]);
 
-  // const isLoading = () =>{
-  //   if(!loading){
-  //     setNewProducts(products);
-  //   }
-  // }
 
   //! price format
   const costing = (price) => {
@@ -89,13 +77,9 @@ const Products = () => {
       .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   };
 
+   //! ************************************* SELECT THE PRODUCTS **************************
   const handleCategory = () => {
-    if(!loading){
-      // console.log("first if")
-      // console.log(newProducts)
-    }
- 
-    // console.log(category);
+     // console.log(category);
     // console.log(newCompany);
     // console.log(newColor)
     // console.log(price)
@@ -149,59 +133,9 @@ const Products = () => {
       setNewProducts(_.intersection(tempCategory, tempCompany, tempColor, tempPrice, tempSearch))
     }
 
-
-
-    // if (category === "all" && newCompany === "all" && newColor === "all" && price === defaultPrice) {
-    //   setNewProducts(products);
-    // }
-    // else if (category !== "all" && newCompany === "all" && newColor === "all" && price === defaultPrice) {
-    //   setNewProducts(products?.filter((item) => item.category === category));
-    // }
-    // else if (category === "all" && newCompany !== "all" && newColor === "all" && price === defaultPrice) {
-    //   setNewProducts(products?.filter((item)=>item.company === newCompany));
-    // }
-    // else if (category === "all" && newCompany === "all" && newColor !== "all" && price === defaultPrice) {
-    //   setNewProducts(products?.filter((item)=>item.colors.includes(newColor)));
-    // }
-    // else if (category === "all" && newCompany === "all" && newColor === "all" && price !== defaultPrice) {
-    //   setNewProducts(products?.filter((item)=>item.price < price));
-    // }
-    // else if (category !== "all" && newCompany !== "all" && newColor === "all" && price === defaultPrice) {
-    //   setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.company === newCompany));
-    // }
-    // else if (category !== "all" && newCompany === "all" && newColor !== "all" && price === defaultPrice) {
-    //   setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.colors.includes(newColor)));
-    // }
-    // else if (category !== "all" && newCompany === "all" && newColor === "all" && price !== defaultPrice) {
-    //   setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.price < price));
-    // }
-    // else if (category === "all" && newCompany !== "all" && newColor !== "all" && price === defaultPrice) {
-    //   setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor)));
-    // }
-    // else if (category === "all" && newCompany !== "all" && newColor === "all" && price !== defaultPrice) {
-    //   setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.price < price));
-    // }
-    // else if (category === "all" && newCompany === "all" && newColor !== "all" && price !== defaultPrice) {
-    //   setNewProducts(products?.filter((item)=>item.colors.includes(newColor))?.filter((item)=>item.price < price));
-    // }
-    // else if (category !== "all" && newCompany !== "all" && newColor !== "all" && price === defaultPrice) {
-    //   setNewProducts(products?.filter((item) => item.category === category)?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor)));
-    // }
-    // else if (category !== "all" && newCompany === "all" && newColor !== "all" && price !== defaultPrice) {
-    //   setNewProducts(products?.filter((item) => item.category === category)?.filter((item)=>item.colors.includes(newColor))?.filter((item)=>item.price < price));
-    // }
-    // else if (category === "all" && newCompany !== "all" && newColor !== "all" && price !== defaultPrice) {
-    //   setNewProducts(products?.filter((item) => item.company === newCompany)?.filter((item)=>item.colors.includes(newColor))?.filter((item)=>item.price < price));
-    // }
   };
 
-  // const liste = [{a:5, b:"ali"}, {a:3, b:"veli"}, {a:3, b:"deli"}, {a:1, b:"ali"}]
-  // const newliste = []
-  // const yepyeni = newliste.concat(liste)
-  // console.log(yepyeni.sort((a,b)=>a.a - b.a))
-  // console.log(liste)
-
-  //! *************************************SORT THE PRODUCTS
+  //! ************************************* SORT THE PRODUCTS **************************
   const sortProducts = () => {
     let empty = [];
     // console.log(sortedProduct);
@@ -238,6 +172,7 @@ const Products = () => {
           <span> / Products</span>
         </h1>
       </div>
+       {/* //! *********************************** SEARCH */}
       <main className="container row m-auto mt-3 mt-md-5 p-0">
         <div className="search col-2 m-0 p-0">
           <form action="">
@@ -320,7 +255,7 @@ const Products = () => {
             />
           </form>
         </div>
-
+ {/* //! *********************************** PRODUCTS FOUNDED */}
         <div className="main-products col-10 m-0">
           <div className="main-products-upper d-flex align-items-center justify-content-between row">
             <div className="upper-btnDiv col-4 d-flex align-items-center justify-content-between">

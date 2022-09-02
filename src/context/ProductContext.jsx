@@ -9,6 +9,7 @@ const ProductContextProvider = ({children}) => {
 const [featured,setFeatured]=useState([])
 const [products,setProducts]=useState([])
 const [loading,setLoading]=useState(false)
+const [defaultPrice, setDefaultPrice] = useState([])
 const getProducts=async()=>{
   setLoading(true);
   try{
@@ -16,6 +17,7 @@ const getProducts=async()=>{
     // console.log(data);
     setProducts(data)
     setFeatured(data.filter((item)=>item.hasOwnProperty("featured")))
+    setDefaultPrice(Math.max(...data.map((item) => item.price)))
     setLoading(false)
   }
   catch(err){
@@ -39,7 +41,7 @@ useEffect(() => {
 }, [cart]);
 
   return (
-    <ProductContext.Provider value={{featured, products, loading, cart, setCart}}>
+    <ProductContext.Provider value={{featured, products, loading, cart, setCart, defaultPrice}}>
       {children}
     </ProductContext.Provider>
   )
