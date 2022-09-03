@@ -12,7 +12,7 @@ const Cart = () => {
   const {cart, setCart} = useContext(ProductContext)
 
   cart.sort((a,b)=>a.date-b.date)
-  console.log(cart)
+  // console.log(cart)
   
   
   // console.log(location.state);

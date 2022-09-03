@@ -49,21 +49,37 @@ const Details = () => {
   } = detail;
 
   const newImages = images?.map((item) => item.thumbnails.large.url);
-  console.log(newImages);
+  // console.log(newImages);
 
   // console.log(images);
   // console.log(colors[tickColor])
   //! *************************************ADD TO CART***********SEND TO LOCAL STORAGE
   const addToCart = () => {
     const date = new Date().getTime();
-    const newcart = {
-      id: id,
+    let newcart = {
+      // id: id,
+      id: date,
+      name: name,
       detail: detail,
       amount: amount,
       color: colors[tickColor],
       date: date,
     };
-    setCart([...cart, newcart]);
+    //! color analyse
+    let testId = cart?.filter((item) => item.name === newcart.name);
+    // console.log(testId);
+    let testColor = testId.filter((item) => item.color === newcart.color);
+    // console.log(testColor);
+    console.log("test bölümü");
+    if (cart.length > 0 && testId.length > 0 && testColor.length > 0) {
+      let result = { ...testColor[0], amount: amount + testColor[0].amount };
+      let tempCart = cart.filter(
+        (item) => item.name !== result.name && item.color !== result.color
+      );
+      setCart([...tempCart, result]);
+    } else {
+      setCart([...cart, newcart]);
+    }
     navigate("/cart", { state: setAmount });
   };
 
