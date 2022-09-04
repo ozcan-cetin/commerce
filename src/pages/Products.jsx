@@ -15,7 +15,7 @@ const _ = require('underscore'); //! UNDERSCORE********** _.intersection([][][])
 const Products = () => {
 
   const navigate = useNavigate();
-  const { products, loading, defaultPrice } = useContext(ProductContext);
+  const { products, loading, defaultPrice, costing } = useContext(ProductContext);
 
   const [tickColor, setTickColor] = useState(false);
   const [category, setCategory] = useState("all");
@@ -69,13 +69,6 @@ const Products = () => {
     // console.log("sort")
   }, [sortedProduct]);
 
-
-  //! price format
-  const costing = (price) => {
-    return parseFloat(price)
-      .toFixed(2)
-      .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-  };
 
    //! ************************************* SELECT THE PRODUCTS **************************
   const handleCategory = () => {

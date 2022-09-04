@@ -55,6 +55,7 @@ const Details = () => {
   // console.log(colors[tickColor])
   //! *************************************ADD TO CART***********SEND TO LOCAL STORAGE
   const addToCart = () => {
+    let oldAmount;
     const date = new Date().getTime();
     let newcart = {
       // id: id,
@@ -65,22 +66,24 @@ const Details = () => {
       color: colors[tickColor],
       date: date,
     };
-    //! color analyse
+    //! color analyse and id analyse
     let testId = cart?.filter((item) => item.name === newcart.name);
-    // console.log(testId);
-    let testColor = testId.filter((item) => item.color === newcart.color);
-    // console.log(testColor);
-    console.log("test bölümü");
-    if (cart.length > 0 && testId.length > 0 && testColor.length > 0) {
-      let result = { ...testColor[0], amount: amount + testColor[0].amount };
-      let tempCart = cart.filter(
-        (item) => item.name !== result.name && item.color !== result.color
-      );
-      setCart([...tempCart, result]);
-    } else {
-      setCart([...cart, newcart]);
-    }
-    navigate("/cart", { state: setAmount });
+    if(testId.length>0){
+      console.log("1. if")
+      let testColor = testId.filter((item) => item.color === newcart.color);
+      if(testColor.length>0){
+        console.log("2. if");
+        oldAmount=testColor[0].amount
+        newcart={...newcart, amount:amount + oldAmount}
+        // let tempCart = cart.filter((item)=>item.name !== testColor.name && item.color !== testColor.color) //! bu olmadı
+        cart.splice(cart.indexOf(testColor[0]),1)
+        setCart([...cart, newcart]);
+      }else{console.log("1. else");
+       setCart([...cart, newcart]);}
+    }else{console.log("2. else");
+      setCart([...cart, newcart]);}
+
+      navigate("/cart", { state: setAmount });
   };
 
   return (

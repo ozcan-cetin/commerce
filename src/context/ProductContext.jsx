@@ -11,6 +11,8 @@ const ProductContextProvider = ({children}) => {
 const [featured,setFeatured]=useState([])
 const [products,setProducts]=useState([])
 const [loading,setLoading]=useState(false)
+const [displayStyle,setDisplayStyle]=useState(true)
+const [showSidebar,setShowSidebar]=useState(false)
 const [defaultPrice, setDefaultPrice] = useState([])
 
 const getProducts=async()=>{
@@ -29,6 +31,16 @@ const getProducts=async()=>{
   }
 }
 
+
+  //! price format
+  const costing = (price) => {
+    return parseFloat(price)
+      .toFixed(2)
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  };
+  
+
+
 // console.log(featured);
 useEffect(() => {
   getProducts()
@@ -43,7 +55,7 @@ useEffect(() => {
 }, [cart]);
 
   return (
-    <ProductContext.Provider value={{featured, products, loading, cart, setCart, defaultPrice}}>
+    <ProductContext.Provider value={{featured, products, loading, cart, setCart, defaultPrice, costing, displayStyle,setDisplayStyle,setShowSidebar,showSidebar}}>
       {children}
     </ProductContext.Provider>
   )
