@@ -15,7 +15,7 @@ const _ = require('underscore'); //! UNDERSCORE********** _.intersection([][][])
 const Products = () => {
 
   const navigate = useNavigate();
-  const { products, loading, defaultPrice, costing } = useContext(ProductContext);
+  const { products, loading, defaultPrice, costing, displayStyle, setDisplayStyle } = useContext(ProductContext);
 
   const [tickColor, setTickColor] = useState(false);
   const [category, setCategory] = useState("all");
@@ -26,6 +26,7 @@ const Products = () => {
   const [foundedProduct, setFoundedProduct] = useState(23)
   const [sortedProduct, setSortedProduct] = useState("Price(Lowest)")
   const [searchTerm, setSearchTerm] = useState("")
+  const [checked,setChecked]=useState(false)
 
  {/* //TODO *********************************** SIDE BAR */}
   const categories = ["All", ...new Set(products.map((item) => item.category))];
@@ -55,7 +56,7 @@ const Products = () => {
     // console.log("test");
       handleCategory()
     // console.log("handle");
-  }, [category, newCompany, newColor, price, searchTerm]);
+  }, [category, newCompany, newColor, price, searchTerm, checked]);
 
   useEffect(() => {
     setFoundedProduct(newProducts.length);
@@ -82,7 +83,8 @@ const Products = () => {
       newCompany === "all" &&
       newColor === "all" &&
       price === defaultPrice &&
-      searchTerm === ""
+      searchTerm === "" &&
+      checked===false
     ) {
       // console.log("if")
       // console.log(products)
@@ -94,6 +96,7 @@ const Products = () => {
       let tempColor=[]
       let tempPrice=[]
       let tempSearch=[]
+      let tempChecked=[]
 
       if (category !== "all") {
         tempCategory = products?.filter((item) => item.category === category);
@@ -116,6 +119,11 @@ const Products = () => {
       } else {
         tempPrice = products || newProducts;
       }
+      if(checked===true){
+        tempChecked=products?.filter((item)=>item.hasOwnProperty("shipping"))
+      }else{
+        tempChecked = products
+      }
       if (searchTerm !== "") {
         tempSearch = products?.filter((item)=>item.name.includes(searchTerm));
       } else {
@@ -123,7 +131,7 @@ const Products = () => {
       }
       // const _ = require('underscore')
       // console.log(_.intersection(tempCategory, tempCompany, tempColor, tempPrice));
-      setNewProducts(_.intersection(tempCategory, tempCompany, tempColor, tempPrice, tempSearch))
+      setNewProducts(_.intersection(tempCategory, tempCompany, tempColor, tempPrice, tempSearch, tempChecked))
     }
 
   };
@@ -153,6 +161,16 @@ const Products = () => {
       empty = [];
     }
   };
+
+  const clearAll=()=>{
+    setCategory("all")
+    setNewCompany("all")
+    setNewColor("all")
+    setTickColor(false)
+    setPrice(defaultPrice)
+    setChecked(false)
+    setSearchTerm("")
+  }
   
   if(loading){
     return <h1>loading...</h1>
@@ -246,43 +264,60 @@ const Products = () => {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
+
+                        {/*---------------- FREE SHIPPING---------------- */}
+
+          <div className="mt-3 fw-bold d-flex align-items-center">
+             <label htmlFor="shipping" className="me-5">Free Shipping </label> 
+            <input type="checkbox" id="shipping" onClick={()=>setChecked(!checked)} />
+          </div>
+
+            {/*--------------------- CLEAR -----------------*/}
+
+          <input type="reset" value="Clear All" className=" mt-4 bg-danger text-light fw-bold px-4 py-1 rounded-3 border-0" 
+          onClick={clearAll}
+          />
           </form>
         </div>
- {/* //! *********************************** PRODUCTS FOUNDED */}
-        <div className="main-products col-10 m-0">
-          <div className="main-products-upper d-flex align-items-center justify-content-between row">
-            <div className="upper-btnDiv col-4 d-flex align-items-center justify-content-between">
+
+            {/* ---------------------MAIN PART -----------------------*/}
+
+
+            <div className="main-products col-sm-8 col-md-9 m-0 mt-3 mt-sm-0">
+          <div className="main-products-upper d-flex align-items-sm-center  justify-content-sm-center justify-content-md-between flex-column flex-sm-row row p-0 m-0 ">
+            <div className="upper-btnDiv col-sm-6 col-lg-4 d-flex align-items-md-center justify-content-start justify-content-md-between flex-column flex-md-row ps-2 ps-sm-0 m-0">
               <div className="products-btnDiv d-flex align-items-center gap-1 p-0 m-0">
-                <button className="d-flex align-items-center border-0 bg-transparent fs-4">
-                  <FaBorderAll />{" "}
-                </button>
-                <button className="d-flex align-items-center border-0 bg-transparent fs-4">
-                  <RiOrderPlayFill />{" "}
-                </button>
+                 <button className= {`${displayStyle && "text-light bg-dark"} d-flex align-items-center border-1 rounded-1 fs-4`} onClick={()=>setDisplayStyle(true)}>
+                <BiGridSmall />{" "}
+              </button>
+              <button className={`${!displayStyle && "text-light bg-dark"} d-flex align-items-center border-1 rounded-1 fs-4`} onClick={()=>setDisplayStyle(false)}>
+                <BsList />{" "}
+              </button>
               </div>
-              <span>{foundedProduct} Products Found</span>
+              <span className="length-part">{foundedProduct} Products Found</span>
             </div>
-            {/* //! *********************************** SORT PRODUCTS */}
-            <div className="line-through border border-1 border-bottom border-dark col-5 "></div>
-            <div className="col-3">
-              <span className="me-2">Sort By</span>
-              <select
-                name="select"
-                id="select"
-                className="border-0 bg-transparent"
-                onChange={(e) => setSortedProduct(e.target.value)}
-              >
-                <option value="Price(Lowest)">Price(Lowest)</option>
+            <div className="line-through border border-1 border-bottom border-dark col-4 bottomLine d-none d-lg-block"></div>
+            <div className="col-sm-6 col-lg-4  sortDiv d-flex  justify-content-sm-end ps-2 ps-sm-0 m-0 ">
+              <span className="me-2 me-sm-0 ">Sort By</span>
+
+              {/* -----------------------SORTING PRODUCTS-------------- */}
+
+              <select name="select" id="select" className="border-0 bg-transparent m-0 p-0" style={{cursor:"pointer"}} onChange={(e)=>setSortedProduct(e.target.value)}>
+               <option value="Price(Lowest)">Price(Lowest)</option>
                 <option value="Price(Highest)">Price(Highest)</option>
                 <option value="Name(A-Z)">Name(A-Z)</option>
                 <option value="Name(Z-A)">Name(Z-A)</option>
               </select>
             </div>
           </div>
-          <div className="main-products-bottom row">
-            {newProducts?.map((product) => {
-              return <SingleProduct key={product.id} product={product} />;
-            })}
+          <div className="main-products-bottom row m-auto mb-md-5">
+            {
+              newProducts?.map((product)=>{
+                return(
+                  <SingleProduct key={product.id} product={product} displayStyle={displayStyle}/>
+                )
+              })
+            }
           </div>
         </div>
       </main>

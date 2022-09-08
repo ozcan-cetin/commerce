@@ -200,9 +200,12 @@ header button:hover{
 footer{
   background-color: #222;
 }
+
 footer span{
   color:#AB7A5F;
 }
+
+
 
 
 /*---------------------------MAIN-----------------------------------------*/
@@ -286,7 +289,7 @@ footer span{
 }
 
 /*----------------------------------PRODUCTS----------------------------*/
-.products-header{
+/* .products-header{
   background-color:#EADED7!important;
 }
 .products-h1 span:first-child{
@@ -336,6 +339,71 @@ footer span{
 }
 .single-card span:last-child{
   color: #AB7A5F;
+} */
+
+/*------------------------PRODUCTS------------------------------*/
+
+.products-header{
+  background-color:#EADED7!important;
+}
+.products-h1 span:first-child{
+  color:#795744 !important;
+  cursor: pointer;
+  font-weight: 700;
+}
+.products-h1 span:last-child{
+  color:#453227 !important;
+  font-weight: 700;
+}
+
+.upper-btnDiv{
+  max-width: 230px;
+}
+
+.bottomLine{
+  max-width: 230px;
+}
+.single-card-bottom{
+  max-width: 299.34px;
+}
+.single-imgDiv{
+  /* max-width: 299.34px; */
+  height: 175px;
+  position: relative;
+}
+.single-imgDiv img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.single-zoom {
+  position: absolute;
+  left: 0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.single-zoom button{
+  background-color: #AB7A5F;
+  color: #fff;
+}
+
+.single-zoom button:hover{
+  background-color: #dab6a1 !important;
+  color:#72472f !important;
+}
+.single-card span:first-child{
+  color: #102a42;
+}
+.single-card span:last-child{
+  color: #AB7A5F;
+}
+
+input[type="search"]{
+  width: 90%;
 }
 
 .product-default-color{
@@ -346,6 +414,7 @@ footer span{
 .color-btn1{
   background-color:rgb(255,0,0);
 }
+
 
 /*---------------DETAİLS------------*/
 .details-header{
@@ -414,6 +483,21 @@ footer span{
   text-align: center;
 }
 
+.single-wide-title{
+  color: #102a42 !important;
+}
+.single-wide-price{
+  color:#72472f !important;
+}
+.single-wide-btn{
+  background-color: #AB7A5F;
+}
+
+.category li,#company-select, #company-select option,.color-btn,#shipping{
+  cursor: pointer;
+}
+
+
 /*---------------CART------------*/
 
 .cart-img{
@@ -435,6 +519,10 @@ footer span{
   grid-template-columns: 35% 20% 15% 20% 10%;
 }
 
+.cart-div{
+  min-height: calc(100vh - 155px);
+}
+
 /*----------------------LOGIN FORM-----------------------*/
 
 
@@ -442,4 +530,44 @@ footer span{
   max-width: 30rem;
   box-shadow: 0 5px 5px grey;
   background-color: rgb(220, 221, 235);
+}
+.login-div{
+  min-height: calc(100vh - 155px);
+}
+
+/*---------------------------MESSAGE MODAL-----------------------------*/
+
+.message-modal{
+  background-color:#DFDBD4;
+  width:90%;
+  max-width:40rem;
+  position:absolute;
+  left:10%;
+  top:80%;
+  transform:translate(-10%,-10%);
+  /* border-radius:40% 0 40% 0; */
+   }
+
+/* @keyframes message{
+  0%{
+    transform: scale(0);
+  }
+  25%{
+    transform: scale(0.25);
+  }
+  50%{
+    transform: scale(0.50);
+  }
+  75%{
+    transform: scale(0.75);
+  }
+  100%{
+    transform: scale(1);
+  }
+} */
+
+.glide--container{
+  display: flex;
+  width: 1000px;
+  background-color: red;
 }
