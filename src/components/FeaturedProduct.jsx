@@ -6,7 +6,7 @@ const FeaturedProduct = ({item}) => {
     const navigate=useNavigate()
     const { id, name, price, image } = item;
   return (
-    <div key={id} className="featured-card glide__slide slider">
+    <div key={id} className="featured-card">
     <div>
       <div className="featured-imgDiv" onMouseOver={()=>setZoom(true)} onMouseOut={()=>setZoom(false)}>
         <img src={image} alt={name} />

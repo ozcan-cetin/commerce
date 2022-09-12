@@ -212,6 +212,8 @@ footer span{
 .featured{
   background-color: #F1F5F8;
 }
+
+
 .featured-imgDiv{
   height: 225px;
   position: relative;
@@ -566,8 +568,14 @@ input[type="search"]{
   }
 } */
 
-.glide--container{
-  display: flex;
-  width: 1000px;
-  background-color: red;
+.slick-arrow{
+  /* color: red !important; */
+  /* background-color: transparent !important; */
+  /* background-color: blue !important;  */
+  border-radius: 50%;
 }
+/* .slick-dots{
+  width: 50%;
+  padding: 0 !important;
+  margin: auto !important;
+} */
