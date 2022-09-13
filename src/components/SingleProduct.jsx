@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TiZoomOutline } from "react-icons/ti";
+import { ProductContext } from "../context/ProductContext";
 
 const SingleProduct = ({ product, displayStyle }) => {
   const { id, name, price, image, description } = product;
+  const {costing}=useContext(ProductContext)
   const [zoom, setZoom] = useState(false);
   const navigate = useNavigate();
   return (
@@ -31,7 +33,7 @@ const SingleProduct = ({ product, displayStyle }) => {
             <div className="d-flex align-items-center justify-content-between mt-3">
               <span className="text-capitalize">{name}</span>
               <span>
-                ${String(price).slice(0, 3) + "." + String(price).slice(3)}
+              ${costing(price)}
               </span>
             </div>
           </div>
@@ -59,7 +61,7 @@ const SingleProduct = ({ product, displayStyle }) => {
           <div className="d-flex  justify-content-end align-items-start flex-column my-lg-4 col-lg-8 ps-lg-4 p-2 py-lg-3">
             <span className="text-capitalize fw-bold fs-4 single-wide-title">{name}</span>
             <span className="fw-bold fs- single-wide-price">
-              ${String(price).slice(0, 3) + "." + String(price).slice(3)}
+            ${costing(price)}
             </span>
             <p>{description.slice(0, 150) + "..."}</p>
             <button className="border-0 rounded-3 single-wide-btn text-light px-2" onClick={() => navigate(`/products/${id}`)}>DETAILS</button>

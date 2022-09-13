@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { TiZoomOutline } from "react-icons/ti";
 import { useNavigate } from 'react-router-dom'
+import { ProductContext } from "../context/ProductContext";
 const FeaturedProduct = ({item}) => {
     const [zoom,setZoom]=useState(false)
     const navigate=useNavigate()
     const { id, name, price, image } = item;
+    const {costing}=useContext(ProductContext)
   return (
     <div key={id} className="featured-card">
     <div>
@@ -19,7 +21,7 @@ const FeaturedProduct = ({item}) => {
       <div className="d-flex align-items-center justify-content-between mt-3">
         <span className="text-capitalize">{name}</span>
         <span>
-          ${String(price).slice(0, 3) + "." + String(price).slice(3)}
+        ${costing(price)}
         </span>
       </div>
     </div>

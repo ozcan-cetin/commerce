@@ -56,7 +56,7 @@ const Products = () => {
     // console.log("test");
       handleCategory()
     // console.log("handle");
-  }, [category, newCompany, newColor, price, searchTerm, checked]);
+  }, [category, newCompany, newColor, price, searchTerm, checked, sortedProduct]);
 
   useEffect(() => {
     setFoundedProduct(newProducts.length);
@@ -131,9 +131,33 @@ const Products = () => {
       }
       // const _ = require('underscore')
       // console.log(_.intersection(tempCategory, tempCompany, tempColor, tempPrice));
-      setNewProducts(_.intersection(tempCategory, tempCompany, tempColor, tempPrice, tempSearch, tempChecked))
+      // setNewProducts(_.intersection(tempCategory, tempCompany, tempColor, tempPrice, tempSearch, tempChecked))
+      let result = _.intersection(tempCategory, tempCompany, tempColor, tempPrice, tempSearch, tempChecked)
+      // sortProducts()
+      let empty = [];
+      let newStatus;
+      // console.log(sortedProduct);
+      if (sortedProduct === "Price(Lowest)") {
+        newStatus = empty.concat(result);
+        setNewProducts(newStatus?.sort((a, b) => a.price - b.price));
+        empty = [];
+      }
+      if (sortedProduct === "Price(Highest)") {
+        newStatus = empty.concat(result);
+        setNewProducts(newStatus?.sort((a, b) => b.price - a.price));
+        empty = [];
+      }
+      if (sortedProduct === "Name(A-Z)") {
+        newStatus = empty.concat(result);
+        setNewProducts(_.sortBy(newStatus, "name"));
+        empty = [];
+      }
+      if (sortedProduct === "Name(Z-A)") {
+        newStatus = empty.concat(result);
+        setNewProducts(_.sortBy(newStatus, "name").reverse());
+        empty = [];
+      }
     }
-
   };
 
   //! ************************************* SORT THE PRODUCTS **************************
@@ -303,10 +327,10 @@ const Products = () => {
               {/* -----------------------SORTING PRODUCTS-------------- */}
 
               <select name="select" id="select" className="border-0 bg-transparent m-0 p-0" style={{cursor:"pointer"}} onChange={(e)=>setSortedProduct(e.target.value)}>
-               <option value="Price(Lowest)">Price(Lowest)</option>
-                <option value="Price(Highest)">Price(Highest)</option>
                 <option value="Name(A-Z)">Name(A-Z)</option>
                 <option value="Name(Z-A)">Name(Z-A)</option>
+               <option value="Price(Lowest)">Price(Lowest)</option>
+                <option value="Price(Highest)">Price(Highest)</option>
               </select>
             </div>
           </div>

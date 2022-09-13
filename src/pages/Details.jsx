@@ -11,7 +11,7 @@ import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 const Details = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { cart, setCart } = useContext(ProductContext);
+  const { cart, setCart, costing } = useContext(ProductContext);
 
   const [detail, setDetail] = useState([]);
   const [index, setIndex] = useState(0);
@@ -176,7 +176,7 @@ const Details = () => {
               ({reviews} customer reviews)
             </span>
           </div>
-          <h3> ${String(price).slice(0, 3) + "." + String(price).slice(3)}</h3>
+          <h3> ${costing(price)}</h3>
           <p>{description}</p>
           <p>
             <span>Available:</span>
